@@ -3,7 +3,8 @@
 pkgs.stdenv.mkDerivation rec {
   pname = "zephyr";
 
-  version = "0.3.2";
+  # 0.3.2 rebuild
+  version = "c074270";
 
   src = if pkgs.stdenv.isDarwin
   then pkgs.fetchurl {
