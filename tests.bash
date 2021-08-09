@@ -28,8 +28,13 @@ spago2nix
 which pscid
 pscid --version
 
+<<<<<<< HEAD
 which purescript-language-server
 # purescript-language-server --version
+=======
+which purs-tidy
+purs-tidy --version
+>>>>>>> purs-tidy
 
 which purty
 purty --help
