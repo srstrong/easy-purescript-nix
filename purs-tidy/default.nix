@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> { inherit system; }
 , system ? builtins.currentSystem
 , nodejs ? pkgs.nodejs
-, purs
+, purs ? (import ../default.nix { inherit pkgs; }).purs
 }:
 
 let
@@ -22,13 +22,13 @@ pkgs.stdenv.mkDerivation rec {
     sha256 = "sha256-1woVnlv+7e3REHFdEHyRNxb5RsoSUHiI+JnnBl24BqQ=";
   };
 
-  buildInputs = [
+  buildInputs = [ nodejs ];
+  nativeBuildInputs = [ 
     spagoPkgs.installSpagoStyle
     spagoPkgs.buildSpagoStyle
     spagoPkgs.buildFromNixStore
     purs
   ];
-  nativeBuildInputs = [ nodejs ];
 
   # this allows us to drop the package.json file all together
   patchPhase = ''
@@ -52,5 +52,10 @@ pkgs.stdenv.mkDerivation rec {
     cp -r output/ $out
     cp $src/bin/index.js $out/bin/purs-tidy
     chmod u+x $out/bin/purs-tidy
+  '';
+
+  postInstall = ''
+    mkdir -p $out/bin
+    ln -s ${nodejs}/bin/node $out/bin/node
   '';
 }
