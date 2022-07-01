@@ -22,7 +22,7 @@ let
         useArch = "x86_64-darwin";
         msg = "Using the non-native ${useArch} binary. While this binary may run under Rosetta 2 translation, no guarantees can be made about stability or performance.";
       in
-      pkgs.stdenv.warn msg (pkgs.fetchurl urls.${useArch})
+      pkgs.lib.warn msg (pkgs.fetchurl urls.${useArch})
     else
       throw "Architecture not supported: ${system}";
 in
